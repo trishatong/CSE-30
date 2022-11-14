@@ -1,9 +1,8 @@
 // version 1.0 11/12/2022
 #include <stdio.h>
 #include "cipher.h"
-#ifndef MYENCRYPT_C
-TODO("using encrypt.S");
-#else
+
+#ifdef MYENCRYPT_C
 TODO("using Cencrypt.c");
 
 int
@@ -14,4 +13,9 @@ encrypt(char *iobuf, char *bookbuf, int cnt)
 
     return cnt;
 }
+
+#elif defined MYENCRYPT_S
+TODO("using encrypt.S");
+#else
+TODO("using solution encrypt");
 #endif
