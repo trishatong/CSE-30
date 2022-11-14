@@ -36,7 +36,7 @@
     //
     // TODO PA9: complete the following stack frame design
     //
-    .equ    FP_OFF,                 // fp offset in main stack frame
+    .equ    FP_OFF,     32          // fp offset in main stack frame
     .equ    FPBOOK,                 // FILE * to book file
     .equ    IOBUF,                  // buffer for input file
     .equ    MODE,                   // decrypt or encrypt mode
