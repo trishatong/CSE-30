@@ -16,8 +16,12 @@ rdbuf(FILE *in, FILE *book, int cnt, char *iobuf, char *bookbuf)
      * read the file
      * cnt should be really a size_t but on ARM32 it is an int
      */
-    if(feof(in))
+    if (feof(in))
         return 0; 
+
+    if (ferror(in))
+        return EXIT_FAIL;
+
     if ((bytes = (int)fread(iobuf, 1, cnt, in)) <= 0)
         return 0;
     /*
