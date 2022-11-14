@@ -21,10 +21,10 @@
     .type   rdbuf, %function
     .global rdbuf
     .equ    IARG5,  4 
-    .equ    FP_OFF, 20
+    .equ    FP_OFF, 28
  
 rdbuf:
-    push    {r4-r7, fp, lr}
+    push    {r4-r9, fp, lr}
     add     fp, sp, FP_OFF
 
     // save the args
@@ -38,7 +38,7 @@ rdbuf:
 
 .Ldone:
     sub     sp, fp, FP_OFF
-    pop     {r4-r7, fp, lr}
+    pop     {r4-r9, fp, lr}
     bx      lr
 
     .size   rdbuf, (. - rdbuf)
