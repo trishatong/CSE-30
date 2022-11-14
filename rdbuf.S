@@ -11,6 +11,7 @@
 
     .extern fread
     .extern feof
+    .extern ferror
     .text
 
     //////////////////////////////////////////////////////
@@ -29,7 +30,8 @@ rdbuf:
 
     // save the args
     
-    // check for end of file
+    // check for end of file feof(in)
+    // check for error ferror(in)
 
 .Lread:
     // fread(iobuf, 1, cnt, in)
