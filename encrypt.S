@@ -16,12 +16,17 @@
     //////////////////////////////////////////////////
     .global encrypt
     .type   encrypt, %function
-    .equ    FP_OFF, 20
+    .equ    FP_OFF, 28
 
 encrypt:
-    push    {r4-r7, fp, lr}
+    push    {r4-r9, fp, lr}
     add     fp, sp, FP_OFF
     // do not alter anything above this line
+    // r0 contains char *iobuf
+    // r1 contains char *bookbuf
+    // r2 contains cnt
+    // r3 is ok to use
+    // r4-r9 preserved registers are ok to use
 
     cmp     r2, 0               // if buffer empty we are done
     ble     .Ldone
@@ -32,7 +37,7 @@ encrypt:
 .Ldone:
     mov     r0, r2              // return cnt processed
     sub     sp, fp, FP_OFF
-    pop     {r4-r7, fp, lr}
+    pop     {r4-r9, fp, lr}
     bx      lr
 
     .size encrypt, (. - encrypt)
