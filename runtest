@@ -76,6 +76,17 @@ do
         echo "**** Standard out   on test number $index failed ****"
         echo
 
+        # check if the output exist, if not the command did not run
+        if [ -f $OUT/out$index ]; then
+            echo "cmp -l $EXPECT/out$index $OUT/out$index"
+            echo
+            echo "byte (first 50 differences max)"
+            echo " # exp out"
+            cmp -l $EXPECT/out$index $OUT/out$index | head -50
+        else
+            echo "Standard out file is missing or empty: $OUT/out$index"
+        fi
+
     else
         echo "**** Standard out   on test number $index passed ****"
     fi
