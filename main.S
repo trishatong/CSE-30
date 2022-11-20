@@ -48,7 +48,7 @@
     //
     .equ    PAD,                    // Stack frame PAD
     .equ    OARG5,                  // output arg5 must be at bottom
-    .equ    FRAMESZ,    OARG5-FP_OFF// total space for frame
+    .equ    FRAMESZ,    OARG5-FP_OFF// total added space to frame
 
     // TODO PA9: list how you are using the preserved registers
     // preserved register use
