@@ -44,11 +44,11 @@
     .equ    ARGV0,                  // save argv[0] for error printing
     //
     // add your local variables here if you need them:
-    // NOTICE: Adjust PAD so FRAMESZ + FP_OFF + 4 divides by 8 EVENLY!
+    // NOTICE: Adjust PAD so FRMADD + FP_OFF + 4 divides by 8 EVENLY!
     //
     .equ    PAD,                    // Stack frame PAD
     .equ    OARG5,                  // output arg5 must be at bottom
-    .equ    FRAMESZ,    OARG5-FP_OFF// total added space to frame
+    .equ    FRMADD,    OARG5-FP_OFF // space in frame for locals+passed args
 
     // TODO PA9: list how you are using the preserved registers
     // preserved register use
@@ -63,7 +63,7 @@
 main:
     push    {r4-r10, fp, lr}        // push all preserved registers
     add     fp, sp, FP_OFF          // set frame pointer to frame base
-    ldr     r3, =FRAMESZ            // get frame size 
+    ldr     r3, =FRMADD             // get space needed for locals+passed args
     sub     sp, sp, r3              // allocate space for locals and passed args 
      
     // save argv[0] in argv0
