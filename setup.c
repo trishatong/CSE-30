@@ -8,7 +8,7 @@
 #include "setup.h"
 
 int
-setup(int argc, char *argv[], int *mode, FILE **book)
+setup(int argc, char *argv[], int *mode, FILE **fpbook)
 {
     int opt;
     int eflag = 0;          // did we see the -e flag
