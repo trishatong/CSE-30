@@ -3,11 +3,17 @@ Starter files for UCSD CSE30 PA8 and PA9 Fall 2022.
 
 After you do a git clone, do the following
 
-cd PA8
+For PA8: cd PA8
+
+For PA9: cd PA9
 
 chmod 0755 runtest
 
 chmod 0755 in/cmd*
+
+chmod 0444 in/test* in/BOOK in/SHORTBOOK
+
+chmod 0444 exp/*
 
 Please protect your source code against accidental loss!
 
