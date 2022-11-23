@@ -81,6 +81,8 @@ main:
     // function calls in the loop body below and r0-r3 will be used for that
 
 .Lloop:
+    // this is a loop that runs until rdbuf indicates the EOF on stdin
+    // was reached or there was an error.
     // int rdbuf(r0=stdin, r1=fpbook, r2=BUFSZ, r3=iobuf,OARG5=bookbuf)
     // note that the 5th arg is on the stack....
     // if r0 on return from rdbuf has a 0 in r0 we are done, branch to .Ldone
