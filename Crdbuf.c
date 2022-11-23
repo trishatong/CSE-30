@@ -8,7 +8,7 @@ TODO("using rdbuf.S");
 TODO("using Crdbuf.c");
 
 int
-rdbuf(FILE *in, FILE *book, int cnt, char *iobuf, char *bookbuf)
+rdbuf(FILE *in, FILE *fpbook, int cnt, char *iobuf, char *bookbuf)
 {
     int bytes; /* use in a register no local variables on the stack needed */
    
@@ -28,7 +28,7 @@ rdbuf(FILE *in, FILE *book, int cnt, char *iobuf, char *bookbuf)
      * now read the same number of chars from the bookfile
      * as was read from the input file
      */
-    if ((int)fread(bookbuf, 1, bytes, book) != bytes)
+    if ((int)fread(bookbuf, 1, bytes, fpbook) != bytes)
         return EXIT_FAIL;
 
     /*
