@@ -19,7 +19,7 @@ setup(int argc, char *argv[], int *mode, FILE **fpbook)
      * set parameters to default value to reduce segfaults when called
      * by faulty code
      */
-    *book = NULL;
+    *fpbook = NULL;
     *mode = -1;
     
     while ((opt = getopt(argc, argv, "edb:")) != -1) {
@@ -62,7 +62,7 @@ setup(int argc, char *argv[], int *mode, FILE **fpbook)
     }
 
     /* open the bookfile */
-    if ((*book = fopen(bookname, "r")) == NULL) {
+    if ((*fpbook = fopen(bookname, "r")) == NULL) {
         fprintf(stderr, "%s: Unable to open bookfile %s\n", *argv, bookname);
         return EXIT_FAIL;
     }
