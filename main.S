@@ -68,24 +68,35 @@ main:
      
     // save argv[0] in argv0
 
-    // call int setup(argc, argv, *mode, *FPBOOK)
+    // call int setup(r0=argc, r1=argv, r2=*mode, r3=*FPBOOK)
+    // r2 and r2 are output parameters. Put the address of where mode
+    // and FPBOOK are located on main()'s stack and put these in r2 and r3
+    // so setup can fill them in (passing a pointer to a local variable in r2,r3)
+    // if setup fails, put EXIT_FAIL in r0 and then branch to .Lexit
 
     // set up for main loop
+    // save the variables you need in the preserved registers as you will be making
+    // function calls in the loop body below and r0-r3 will be used for that
 
 .Lloop:
     // int rdbuf(r0=stdin, r1=fpbook, r2=BUFSZ, r3=iobuf,OARG5=bookbuf)
+    // if r0 on return from rdbuf has a 0 in r0 we are done, branch to .Ldone
+    // if return less than 0, error print to stderr .Lbdrd, and go to .Ldone
 
-
-
-    // int XXcrypt(char *iobuf, char *bookbuf, int cnt)
+    // check the mode flag and call either encrypt or decrypt
+    // int XXcrypt(r0=char *iobuf, r1=char *bookbuf, r2=int cnt)
     // encrypt or decrypt 
     // returns cnt
 
-
-
-    //
-    // fwrite(iobuf, 1, cnt, stdout)
-    // 
+    // make sure to save cnt so we can check that fwrite wrote cnt characters
+    // fwrite returns number of chracters it wrote.
+    // fwrite(r0=iobuf, r1=1, r2=cnt, r3=*stdout)
+    // if cnt characters written go to .Lloop (write is ok)
+    // othewise error, print to stderr .Lbdwr and fall through to .Ldone
+    
+.Ldone:
+    // normal exit, call fclose of fpbook and fall through
+    // to .Lexit
 
 .Lexit:
     sub     sp, fp, FP_OFF
