@@ -14,10 +14,9 @@
     .extern ferror
     .text
 
-    //////////////////////////////////////////////////////
     // int rdbuf(FILE *in, FILE *book, int cnt, char *iobuf, char *bookbuf
     // returns number of bytes read EXIT_FAIL otherwise
-    //////////////////////////////////////////////////////
+    // you can change or remove any comments in this file
 
     .type   rdbuf, %function
     .global rdbuf
