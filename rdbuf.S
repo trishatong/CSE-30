@@ -28,15 +28,21 @@ rdbuf:
     push    {r4-r9, fp, lr}
     add     fp, sp, FP_OFF
 
-    // save the args
+    // save the args as there are many function calls
     
     // check for end of file feof(in)
+    // if r0 is not zero at EOF, return 0
+    // otherwise check for read errors
     // check for error ferror(in)
+    // if r0 is zero, no errors, do the reads
+    // if r1 is not zero, set r0 to EXIT_FAIL and return
 
-.Lread:
-    // fread(iobuf, 1, cnt, in)
+    // bytes = fread(r0=iobuf, r1=1, r2=cnt, r3=in)
+    // save bytes so we can check that we read same bytes from bookfile
 
-    // fread(bookbuf, 1, bytes, book)
+    // r0 = fread(r0=bookbuf, r1=1, r2=bytes, r3=book)
+    // if r0 is not equal to bytes return EXIT fail
+    // otherwise return bytes
 
 .Ldone:
     sub     sp, fp, FP_OFF
