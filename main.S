@@ -17,6 +17,7 @@
     .extern stderr
 
     .section .rodata
+    // do not change these error messages
 .Lbdrd:  .string "%s: read failed\n"
 .Lbdwr:  .string "%s: write failed\n"
 
@@ -35,6 +36,7 @@
     // stack frame layout
     //
     // TODO PA9: complete the following stack frame design
+    // You can change or delete any comments in this file
     //
     .equ    FP_OFF,     32          // fp offset in main stack frame
     .equ    FPBOOK,                 // FILE * to book file
@@ -61,7 +63,7 @@
     // r10
 
 main:
-    push    {r4-r10, fp, lr}        // push all preserved registers
+    push    {r4-r10, fp, lr}        // push all the usable preserved registers
     add     fp, sp, FP_OFF          // set frame pointer to frame base
     ldr     r3, =FRMADD             // get space needed for locals+passed args
     sub     sp, sp, r3              // allocate space for locals and passed args 
@@ -80,6 +82,7 @@ main:
 
 .Lloop:
     // int rdbuf(r0=stdin, r1=fpbook, r2=BUFSZ, r3=iobuf,OARG5=bookbuf)
+    // note that the 5th arg is on the stack....
     // if r0 on return from rdbuf has a 0 in r0 we are done, branch to .Ldone
     // if return less than 0, error print to stderr .Lbdrd, and go to .Ldone
 
