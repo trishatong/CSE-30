@@ -15,7 +15,7 @@
     .text
 
     // int rdbuf(r0=FILE *in, r1=FILE *book, r2=int cnt, r3=char *iobuf, 
-    //            on the stack in IARG5=char *bookbuf)
+    //            on the stack in ARG5=char *bookbuf)
     // returns number of bytes read EXIT_FAIL otherwise
     // you can change or remove any comments in this file
 
@@ -43,7 +43,7 @@ rdbuf:
 
     // r0 = fread(r0=bookbuf, r1=1, r2=bytes, r3=book)
     // the pointer to bookbuf is passed on the stack so
-    // you need to do a ldr from [fp, IARG5] to get the address
+    // you need to do a ldr from [fp, ARG5] to get the address
     // if r0 on the return from fread is not equal to bytes 
     // return in r0 from stdin (into iobuf) return EXIT fail
     // otherwise set r0 = bytes and return
