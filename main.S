@@ -94,7 +94,7 @@ main:
     // returns cnt
 
     // make sure to save cnt so we can check that fwrite wrote cnt characters
-    // fwrite returns number of chracters it wrote.
+    // fwrite returns number of characters it wrote.
     // fwrite(r0=iobuf, r1=1, r2=cnt, r3=*stdout)
     // if cnt characters written go to .Lloop (write is ok)
     // othewise error, print to stderr .Lbdwr and fall through to .Ldone
