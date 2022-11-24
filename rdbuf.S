@@ -15,7 +15,7 @@
     .text
 
     // int rdbuf(r0=FILE *in, r1=FILE *book, r2=int cnt, r3=char *iobuf, 
-    //            on the stack in ARG5=char *bookbuf)
+    //            on the stack at ARG5 offset=char *bookbuf)
     // returns number of bytes read EXIT_FAIL otherwise
     // you can change or remove any comments in this file
 
