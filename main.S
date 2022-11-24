@@ -84,7 +84,8 @@ main:
     // this is a loop that runs until rdbuf indicates the EOF on stdin
     // was reached or there was an error.
     // int rdbuf(r0=stdin, r1=fpbook, r2=BUFSZ, r3=iobuf,OARG5=bookbuf)
-    // note that the 5th arg is on the stack....
+    // NOTICE that the 5th arg is on the stack so you need to str the 
+    // address of bookbuf at offset OARG5 on the stack
     // if r0 on return from rdbuf has a 0 in r0 we are done, branch to .Ldone
     // if return less than 0, error print to stderr .Lbdrd, and go to .Ldone
 
