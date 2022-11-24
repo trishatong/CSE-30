@@ -32,11 +32,11 @@ rdbuf:
     // as there are many function calls
     
     // check for end of file feof(in)
-    // if r0 is not zero at EOF, return 0
+    // if r0 is not zero at EOF, set r0 to 0 and return
     // otherwise check for read errors
     // check for error ferror(in)
     // if r0 is zero, no errors, do the reads
-    // if r1 is not zero, set r0 to EXIT_FAIL and return
+    // if r0 is not zero, set r0 to EXIT_FAIL and return
 
     // bytes = fread(r0=iobuf, r1=1, r2=cnt, r3=in)
     // save bytes so we can check that we read same bytes from bookfile
@@ -44,9 +44,9 @@ rdbuf:
     // r0 = fread(r0=bookbuf, r1=1, r2=bytes, r3=book)
     // the pointer to bookbuf is passed on the stack so
     // you need to do a ldr from [fp, IARG6] to get the address
-    // if r0 as the return from fread is not equal to bytes 
-    // actuall read from stdin (into iobuf) return EXIT fail
-    // otherwise return bytes
+    // if r0 on the return from fread is not equal to bytes 
+    // return in r0 from stdin (into iobuf) return EXIT fail
+    // otherwise set r0 = bytes and return
 
 .Ldone:
     sub     sp, fp, FP_OFF
