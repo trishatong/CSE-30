@@ -27,7 +27,7 @@
     // encrypter [-d | -e] -b bookfile
     //
     // int main(int argc, char **argv)
-    //
+    // int main(r0=argc, r1=argv)
 
     .global main
     .type   main, %function
@@ -69,7 +69,7 @@ main:
     sub     sp, sp, r3              // allocate space for locals and passed args 
      
     // save argv[0] in argv0
-
+    // at the entry to main() argc is in r0 and argv is in r1.
     // call int setup(r0=argc, r1=argv, r2=*mode, r3=*FPBOOK)
     // r2 and r2 are output parameters. Put the address of where mode
     // and FPBOOK are located on main()'s stack and put these in r2 and r3
