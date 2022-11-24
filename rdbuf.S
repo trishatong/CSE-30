@@ -43,7 +43,7 @@ rdbuf:
 
     // r0 = fread(r0=bookbuf, r1=1, r2=bytes, r3=book)
     // the pointer to bookbuf is passed on the stack so
-    // you need to do a ldr from [fp, IARG6] to get the address
+    // you need to do a ldr from [fp, IARG5] to get the address
     // if r0 on the return from fread is not equal to bytes 
     // return in r0 from stdin (into iobuf) return EXIT fail
     // otherwise set r0 = bytes and return
