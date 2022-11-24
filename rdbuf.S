@@ -21,7 +21,7 @@
 
     .type   rdbuf, %function
     .global rdbuf
-    .equ    IARG5,  4 
+    .equ    ARG5,  4 
     .equ    FP_OFF, 28
  
 rdbuf:
