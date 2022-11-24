@@ -42,7 +42,7 @@ rdbuf:
     // save bytes so we can check that we read same bytes from bookfile
     // if r0 <= 0 return with r0 = 0
 
-    // r0 = fread(r0=bookbuf, r1=1, r2=bytes, r3=book)
+    // r0 = fread(r0=bookbuf, r1=1, r2=bytes, r3=fpbook)
     // the pointer to bookbuf is passed on the stack so
     // you need to do a ldr from ARG5 offset to get the address
     // to pass to the fread
