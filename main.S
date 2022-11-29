@@ -1,4 +1,4 @@
-    // version 1.0 05/22/2022 //
+    // version 1.1 10/29/2022 //
 #ifndef MYMAIN_S
 #else
     .arch   armv6
@@ -74,7 +74,7 @@ main:
     // r2 and r2 are output parameters. Put the address of where mode
     // and FPBOOK are located on main()'s stack and put these in r2 and r3
     // so setup can fill them in (passing a pointer to a local variable in r2,r3)
-    // if setup fails, put EXIT_FAIL in r0 and then branch to .Lexit
+    // if setup fails, put EXIT_FAILURE in r0 and then branch to .Lexit
 
     // set up for main loop
     // save the variables you need in the preserved registers as you will be making
