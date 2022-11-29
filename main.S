@@ -100,7 +100,7 @@ main:
     // fwrite returns number of characters it wrote.
     // fwrite(r0=iobuf, r1=1, r2=cnt, r3=*stdout)
     // if cnt characters written go to .Lloop (write is ok)
-    // othewise error, print to stderr .Lbdwr, put EXIT_FAIURE in r0
+    // othewise error, print to stderr .Lbdwr, put EXIT_FAILURE in r0
     // and fall through to .Ldone
     
 .Ldone:
