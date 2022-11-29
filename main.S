@@ -86,8 +86,10 @@ main:
     // int rdbuf(r0=stdin, r1=fpbook, r2=BUFSZ, r3=iobuf,OARG5=bookbuf)
     // NOTICE that the 5th arg is on the stack so you need to str the 
     // address of bookbuf at offset OARG5 on the stack
-    // if r0 on return from rdbuf has a 0 in r0 we are done, branch to .Ldone
-    // if return less than 0, error print to stderr .Lbdrd, and go to .Ldone
+    // if r0 on return from rdbuf has a 0 in r0 we are done, 
+    // branch to .Ldone (EXIT_SUCCESS is a 0)
+    // if return less than 0, error print to stderr .Lbdrd, 
+    // Put EXIT_FAILURE in r0 and go to .Ldone
 
     // check the mode flag and call either encrypt or decrypt
     // int XXcrypt(r0=char *iobuf, r1=char *bookbuf, r2=int cnt)
@@ -98,7 +100,8 @@ main:
     // fwrite returns number of characters it wrote.
     // fwrite(r0=iobuf, r1=1, r2=cnt, r3=*stdout)
     // if cnt characters written go to .Lloop (write is ok)
-    // othewise error, print to stderr .Lbdwr and fall through to .Ldone
+    // othewise error, print to stderr .Lbdwr, put EXIT_FAIURE in r0
+    // and fall through to .Ldone
     
 .Ldone:
     // normal exit, call fclose of fpbook and fall through
