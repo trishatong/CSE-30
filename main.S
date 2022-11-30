@@ -71,7 +71,7 @@ main:
     // save argv[0] in argv0
     // at the entry to main() argc is in r0 and argv is in r1.
     // call int setup(r0=argc, r1=argv, r2=*mode, r3=*FPBOOK)
-    // r2 and r2 are output parameters. Put the address of where mode
+    // r2 and r3 are output parameters. Get the addresses of where mode
     // and FPBOOK are located on main()'s stack and put these in r2 and r3
     // so setup can fill them in (passing a pointer to a local variable in r2,r3)
     // if setup fails, put EXIT_FAILURE in r0 and then branch to .Lexit
