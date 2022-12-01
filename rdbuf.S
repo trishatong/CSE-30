@@ -1,6 +1,6 @@
 #ifndef MYRDBUF_S
 #else
-// version 1.0 10/12/2022 //
+// version 1.1 11/29/2022 //
     .arch   armv6
     .arm
     .fpu    vfp
@@ -47,7 +47,8 @@ rdbuf:
     // you need to do a ldr from ARG5 offset to get the address
     // to pass to the fread
     // if r0 on the return from fread is not equal to bytes 
-    // return in r0 from stdin (into iobuf) return EXIT fail
+    // (bytes is the value returned in r0 from the fread into iobuf above),
+    // then return EXIT fail
     // otherwise set r0 = bytes and return
 
 .Ldone:
