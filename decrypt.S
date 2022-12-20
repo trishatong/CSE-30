@@ -31,8 +31,34 @@ decrypt:
     cmp     r2, 0               // if buffer empty we are done
     ble     .Ldone
 
-    // your code here
-
+    // MY CODE				C code equivalent
+    mov r4, 0				// unsigned int reversed = 0
+    mov r5, 0				// unsigned int bookbuf_int = 0
+    	mov r3, 0 			// for (int i = 0
+    .Lfor1:
+	cmp r3, r2			// i < cnt	
+	bge .Lendfr1
+	mov r4, 0			// reversed = 0
+        ldrb r6, [r0, r3]		// unsigned int index = iobuf[i]
+	mov r8, 0			// byte = 0
+  	ldrb r5, [r1, r3]		// bookbuf_int = bookbuf[i]
+	EOR r8, r6, r5			// byte = index ^ bookbuf_int
+	    mov r9, 0			// for (int j = 0
+        .Lfor2:
+	    cmp r9, 8			// j < 8
+	    bge .Lendfr2
+	    lsr r7, r8, r9		// a = byte>>j
+	    AND r7, r7, 1		// a = a & 1   (a = (byte>>j) & 1)
+	    rsb r6, r9, 7		// b = 7 - j
+	    lsl r6, r7, r6		// c = a<<b
+	    ORR r4, r4, r6	    	// reversed = reversed | c
+	    add r9, r9, 1		// j++
+	    b .Lfor2
+    .Lendfr2:				// } end of inner loop
+    strb r4, [r0, r3]			// iobuf[i] = reversed
+	add r3, r3, 1			// i++
+	b .Lfor1
+    .Lendfr1:
     // do not alter anything below this line
 .Ldone:
     mov     r0, r2              // return cnt processed

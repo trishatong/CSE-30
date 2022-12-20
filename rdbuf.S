@@ -1,6 +1,6 @@
 #ifndef MYRDBUF_S
 #else
-// version 1.1 11/29/2022 //
+// version 1.0 10/12/2022 //
     .arch   armv6
     .arm
     .fpu    vfp
@@ -14,10 +14,9 @@
     .extern ferror
     .text
 
-    // int rdbuf(r0=FILE *in, r1=FILE *fpbook, r2=int cnt, r3=char *iobuf, 
-    //            on the stack at ARG5 offset=char *bookbuf)
+    // int rdbuf(r0=FILE *in, r1=FILE *book, r2=int cnt, r3=char *iobuf, 
+    //            on the stack in IARG5=char *bookbuf)
     // returns number of bytes read EXIT_FAIL otherwise
-    // you can change or remove any comments in this file
 
     .type   rdbuf, %function
     .global rdbuf
@@ -28,28 +27,52 @@ rdbuf:
     push    {r4-r9, fp, lr}
     add     fp, sp, FP_OFF
 
-    // save the register args (r0-r3) into preserved registers
-    // as there are many function calls
+    mov r4, r0                      // r4 = in
+    mov r5, r1                      // r5 = book
+    mov r6, r2                      // r6 = cnt
+    mov r7, r3                      // r7 = iobuf
+ 
+    bl feof						    // if (feof(in))
+    cmp r0, 0						// if (r0 != 0)		
+    bne .Lendsetzero				
+
+    mov r0, r4                      // r0 = in
+    bl ferror						// if (ferror(in))
+    cmp r0, 0						// if (r0 == 0)
+    bne .Lendfail
+
+    mov r0, r7						// r0 = iobuf					
+    mov r1, 1						// r1 = 1
+    mov r2, r6						// r2 = cnt	
+    mov r3, r4						// r3 = in
+
+    bl fread						
+    cmp r0, 0						// if (fread <= 0)
+    ble .Lendsetzero				
+     
+    mov r6, r0						// r6 = bytes
+    ldr r0, [fp, ARG5]			    // r0 = bookbuf					
+    mov r1, 1						// r1 = 1
+    mov r2, r6						// r2 = bytes	
+    mov r3, r5						// r3 = fpbook
     
-    // check for end of file feof(in)
-    // if r0 is not zero at EOF, set r0 to 0 and return
-    // otherwise check for read errors
-    // check for error ferror(in)
-    // if r0 is zero, no errors, do the reads
-    // if r0 is not zero, set r0 to EXIT_FAIL and return
+    bl fread
+    cmp r0, r6						// if (fread != bytes)
+    bne .Lendfail       
 
-    // bytes = fread(r0=iobuf, r1=1, r2=cnt, r3=in)
-    // save bytes so we can check that we read same bytes from bookfile
-    // if r0 <= 0 return with r0 = 0
+.Lendreturnbytes:         
+    mov r0, r6                      // r0 = bytes
+    cmp r0, 0                       // if (bytes == 0)
+    bne .Ldone
 
-    // r0 = fread(r0=bookbuf, r1=1, r2=bytes, r3=fpbook)
-    // the pointer to bookbuf is passed on the stack so
-    // you need to do a ldr from ARG5 offset to get the address
-    // to pass to the fread
-    // if r0 on the return from fread is not equal to bytes 
-    // (bytes is the value returned in r0 from the fread into iobuf above),
-    // then return EXIT fail
-    // otherwise set r0 = bytes and return
+
+.Lendsetzero:
+    mov r0, 0                       // r0 = 0
+    cmp r0, 0                       // if (r0 == 0)
+    beq .Ldone
+
+.Lendfail:
+	mov r0, EXIT_FAIL               // r0 = EXIT_FAIL   
 
 .Ldone:
     sub     sp, fp, FP_OFF
