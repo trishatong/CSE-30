@@ -1,3 +1,0 @@
-Cipher is a file encryption/decryption program that both encrypt and decrypt any type of file (text and binary) 
-using a combination of per byte bit manipulation and an exclusive or (EOR in arm ^ in C) encoding using sequence 
-of bytes from a book file; written in C and assembly language.
